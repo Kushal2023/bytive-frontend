@@ -5,7 +5,7 @@ import { SetUsers } from "./redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 
 function App() {
-  const { currentUsers } = useSelector((state) => state.users);
+  const { currentUsers, isLoading } = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -14,11 +14,21 @@ function App() {
 
   return (
     <div className="app">
-      <div className="cards">
-        {currentUsers?.map((user, index) => (
-          <Usercard key={index} user={user} />
-        ))}
-      </div>
+      {isLoading ? (
+        <div className="loader">
+          <div className="spinner">
+            <div className="bounce1"></div>
+            <div className="bounce2"></div>
+            <div className="bounce3"></div>
+          </div>
+        </div>
+      ) : (
+        <div className="cards">
+          {currentUsers?.map((user, index) => (
+            <Usercard key={index} user={user} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

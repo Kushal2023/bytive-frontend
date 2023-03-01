@@ -1,9 +1,17 @@
-import { updateUsers, setUsers, deleteUser } from "./userRedux";
+import {
+  updateUsers,
+  setUsersStart,
+  setUsers,
+  setUsersFinish,
+  deleteUser,
+} from "./userRedux";
 import axios from "axios";
 
 export const SetUsers = async (dispatch) => {
+  dispatch(setUsersStart());
   const res = await axios.get("https://bytive-backend.onrender.com/api/users");
   dispatch(setUsers(res.data));
+  dispatch(setUsersFinish());
 };
 
 export const UpdateUsers = async (dispatch, userId, userInfo) => {
