@@ -6,9 +6,11 @@ import "./usercard.css";
 
 const Usercard = ({ user }) => {
   const [openModal, setopenModal] = useState(false);
+  const [favourite, setFavourite] = useState(user.isFavourite);
   const dispatch = useDispatch();
 
   const changeIsFavouriteStatus = () => {
+    setFavourite((favourite) => !favourite);
     UpdateUsers(dispatch, user._id, {
       ...user,
       isFavourite: !user.isFavourite,
@@ -41,7 +43,7 @@ const Usercard = ({ user }) => {
       <ul className="card-options">
         <li>
           <button onClick={changeIsFavouriteStatus}>
-            {!user.isFavourite ? (
+            {!favourite ? (
               <i className="fa-regular fa-heart" style={{ color: "red" }}></i>
             ) : (
               <i className="fa-solid fa-heart" style={{ color: "red" }}></i>
